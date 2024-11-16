@@ -1,0 +1,66 @@
+{% extends "tiendaApp/base.html" %}
+
+{% block contenido %}
+<div class="row">
+    <div class="col">
+        <a class="btn btn-success" href="{% url 'empleado' %}"><i class="bi bi-person-plus-fill"></i>Agregar Empleado</a>
+    </div>
+</div>
+
+  <div class="row">
+    <div class="col">
+        <table class="table table-dark table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>RUN</th>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Genero</th>
+                    <th>Código Emp.</th>
+                    <th>Sueldo</th>
+                    <th>Fecha Nac.</th>
+                    <th>Cargo</th>
+                    <th>Departamento</th>
+                    <th>Fotografia</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for empleado in empleados %}
+                <tr>
+                    <td>{{ empleado.run }}</td>
+                    <td>{{ empleado.nombre }}</td>
+                    <td>{{ empleado.paterno }}</td>
+                    <td>{{ empleado.materno }}</td>
+                    <td>{{ empleado.sexo }}</td>
+                    <td>{{ empleado.codigoEmpleado }}</td>
+                    <td>{{ empleado.sueldo }}</td>
+                    <td>{{ empleado.fechaNac }}</td>
+                    <td>{{ empleado.cargo }}</td>
+                    <td>{{ empleado.departamento }}</td>
+                    <td>
+                        {% if empleado.foto %}
+                          <img src="{{ empleado.foto.url }}" alt="fotito dl empleado" width="50" height="50">
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'editarEmpleado' empleado.id %}">
+                            <i class="bi bi-pencil-square text-warning"></i>
+                        </a>  
+                        <a href="{% url 'empleadoDel' empleado.id %}">
+                            <i class="bi bi-trash3-fill text-danger"></i>  
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+
+        
+    </div>
+  </div>
+{% endblock contenido %}
+
